@@ -1,11 +1,13 @@
 package com.codingshuttle.razorpay.payment_service.service.impl;
 
 
+import com.codingshuttle.razorpay.common_lib.dto.FindOrCreateCustomerRequest;
 import com.codingshuttle.razorpay.common_lib.enums.EventAggregateType;
 import com.codingshuttle.razorpay.common_lib.enums.OrderStatus;
 import com.codingshuttle.razorpay.common_lib.exceptions.BusinessRuleViolationException;
 import com.codingshuttle.razorpay.common_lib.exceptions.DuplicateResourceException;
 import com.codingshuttle.razorpay.common_lib.exceptions.ResourceNotFoundException;
+import com.codingshuttle.razorpay.payment_service.client.CustomerServiceClient;
 import com.codingshuttle.razorpay.payment_service.dto.request.CreateOrderRequest;
 import com.codingshuttle.razorpay.payment_service.dto.response.OrderResponse;
 import com.codingshuttle.razorpay.payment_service.dto.response.PaymentResponse;
@@ -38,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
     private final PaymentRepository paymentRepository;
     private final OrderMapper orderMapper;
     private final PaymentMapper paymentMapper;
-    private final CustomerService customerService;
+    private final CustomerServiceClient customerServiceClient;
     private final OutboxEventPublisher eventPublisher;
 
     @Value("${payment.order.default-order-expiry-minutes:30}")
@@ -53,10 +55,11 @@ public class OrderServiceImpl implements OrderService {
 
         UUID customerId = null;
         if(request.customer() != null) {
-            customerId = customerService.findOrCreate(merchantId,
+            customerId = customerServiceClient.findOrCreate(new FindOrCreateCustomerRequest(merchantId,
                     request.customer().email(),
                     request.customer().name(),
-                    request.customer().phone());
+                    request.customer().phone())
+            );
         }
         OrderRecord order = OrderRecord.builder()
                 .receipt(request.receipt())

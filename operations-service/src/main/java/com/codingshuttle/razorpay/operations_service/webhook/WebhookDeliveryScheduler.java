@@ -1,13 +1,8 @@
-package com.codingshuttle.razorpay.razorpay.operations.webhook;
+package com.codingshuttle.razorpay.operations_service.webhook;
 
 import com.codingshuttle.razorpay.common_lib.enums.WebhookEventStatus;
 import com.codingshuttle.razorpay.operations_service.entity.WebhookEvent;
 import com.codingshuttle.razorpay.operations_service.repository.WebhookEventRepository;
-import com.codingshuttle.razorpay.operations_service.webhook.WebhookDeliveryExecutor;
-import com.codingshuttle.razorpay.operations_service.webhook.WebhookRetryQueue;
-import com.codingshuttle.razorpay.razorpay.common.enums.WebhookEventStatus;
-import com.codingshuttle.razorpay.razorpay.operations.entity.WebhookEvent;
-import com.codingshuttle.razorpay.razorpay.operations.repository.WebhookEventRepository;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;

@@ -3,14 +3,9 @@ package com.codingshuttle.razorpay.operations_service.webhook;
 import com.codingshuttle.razorpay.common_lib.dto.WebhookTarget;
 import com.codingshuttle.razorpay.common_lib.enums.WebhookEventStatus;
 import com.codingshuttle.razorpay.common_lib.util.SignerUtil;
+import com.codingshuttle.razorpay.operations_service.client.MerchantServiceClient;
 import com.codingshuttle.razorpay.operations_service.entity.WebhookEvent;
 import com.codingshuttle.razorpay.operations_service.repository.WebhookEventRepository;
-import com.codingshuttle.razorpay.razorpay.common.dto.WebhookTarget;
-import com.codingshuttle.razorpay.razorpay.common.enums.WebhookEventStatus;
-import com.codingshuttle.razorpay.razorpay.common.util.SignerUtil;
-import com.codingshuttle.razorpay.razorpay.merchant.api.MerchantLookupService;
-import com.codingshuttle.razorpay.razorpay.operations.entity.WebhookEvent;
-import com.codingshuttle.razorpay.razorpay.operations.repository.WebhookEventRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
@@ -31,7 +26,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class WebhookKafkaConsumer {
 
-    private final MerchantLookupService merchantLookupService;
+    private final MerchantServiceClient merchantServiceClient;
     private final ObjectMapper objectMapper;
     private final SignerUtil signerUtil;
     private final WebhookEventRepository webhookEventRepository;
@@ -67,7 +62,7 @@ public class WebhookKafkaConsumer {
             UUID merchantId = UUID.fromString(merchantIdRaw.toString());
 
 
-            List<WebhookTarget> targets = merchantLookupService.getActiveConfigsForEvent(merchantId,eventType);
+            List<WebhookTarget> targets = merchantServiceClient.getActiveConfigsForEvent(merchantId,eventType);
             log.info(
                     "Webhook lookup: merchantId={}, eventType={}, targets={}",
                     merchantId,

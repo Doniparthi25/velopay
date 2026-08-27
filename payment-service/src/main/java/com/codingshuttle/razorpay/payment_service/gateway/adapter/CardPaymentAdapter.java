@@ -1,6 +1,8 @@
 package com.codingshuttle.razorpay.payment_service.gateway.adapter;
 
 
+import com.codingshuttle.razorpay.common_lib.dto.VaultChargeRequest;
+import com.codingshuttle.razorpay.payment_service.client.VaultServiceClient;
 import com.codingshuttle.razorpay.payment_service.gateway.PaymentAdapter;
 import com.codingshuttle.razorpay.payment_service.gateway.dto.PaymentRequest;
 import com.codingshuttle.razorpay.payment_service.gateway.dto.PaymentResult;
@@ -16,15 +18,13 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CardPaymentAdapter implements PaymentAdapter {
 
-    private final VaultService vaultService;
+    private final VaultServiceClient vaultServiceClient;
 
     @Override
     public PaymentResult initiate(PaymentRequest request) {
         String token = (String) request.methodDetails().get("token");
 
-        PaymentProcessorResponse response = vaultService.charge(
-                request.paymentId(), token, request.amount(), request.methodDetails()
-        );
+        PaymentProcessorResponse response = vaultServiceClient.charge(new VaultChargeRequest(request.paymentId(), token, request.amount(), request.methodDetails()));
 
         return switch (response) {
             case PaymentProcessorResponse.Success success -> new PaymentResult.Success(success.bankReference());

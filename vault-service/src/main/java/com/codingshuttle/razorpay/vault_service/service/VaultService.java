@@ -1,6 +1,7 @@
 package com.codingshuttle.razorpay.vault_service.service;
 
 
+import com.codingshuttle.razorpay.common_lib.dto.PaymentProcessorResponse;
 import com.codingshuttle.razorpay.common_lib.entity.Money;
 import com.codingshuttle.razorpay.vault_service.dto.request.TokenizeRequest;
 import com.codingshuttle.razorpay.vault_service.dto.response.TokenizeResponse;

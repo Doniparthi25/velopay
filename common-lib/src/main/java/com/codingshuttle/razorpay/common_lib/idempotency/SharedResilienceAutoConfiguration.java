@@ -1,5 +1,7 @@
 package com.codingshuttle.razorpay.common_lib.idempotency;
 
+import com.codingshuttle.razorpay.common_lib.cache.ApiKeyCache;
+import com.codingshuttle.razorpay.common_lib.cache.RedisApiKeyCache;
 import com.codingshuttle.razorpay.common_lib.context.MerchantContext;
 import com.codingshuttle.razorpay.common_lib.ratelimit.*;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,9 +11,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.servlet.HandlerExceptionResolver;
+import tools.jackson.databind.ObjectMapper;
 
 @AutoConfiguration
 public class SharedResilienceAutoConfiguration {
+
+    @Bean
+    public ApiKeyCache apiKeyCache(StringRedisTemplate stringRedisTemplate, ObjectMapper objectMapper) {
+        return new RedisApiKeyCache(stringRedisTemplate,objectMapper);
+    }
 
     @Bean
     public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory connectionFactory) {
