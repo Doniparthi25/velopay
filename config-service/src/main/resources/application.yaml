@@ -6,7 +6,7 @@ spring:
     config.server.git:
       uri: https://github.com/Doniparthi25/distributed-razorpay-config
       username: Doniparthi25
-      password: REMOVED_GIT_PAT
+      password: ${GIT_PASSWORD}
       default-label: main
 
 server.port: 8888
