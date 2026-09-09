@@ -1,10 +1,10 @@
 package com.codingshuttle.razorpay.payment_service.processor.strategy;
 
 
+import com.codingshuttle.razorpay.common_lib.dto.PaymentProcessorRequest;
+import com.codingshuttle.razorpay.common_lib.dto.PaymentProcessorResponse;
 import com.codingshuttle.razorpay.common_lib.util.RandomizerUtil;
 import com.codingshuttle.razorpay.payment_service.processor.PaymentProcessor;
-import com.codingshuttle.razorpay.payment_service.processor.dto.PaymentProcessorRequest;
-import com.codingshuttle.razorpay.payment_service.processor.dto.PaymentProcessorResponse;
 import org.springframework.stereotype.Component;
 
 @Component

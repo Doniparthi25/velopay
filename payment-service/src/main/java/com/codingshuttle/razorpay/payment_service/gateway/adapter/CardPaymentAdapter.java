@@ -1,12 +1,15 @@
 package com.codingshuttle.razorpay.payment_service.gateway.adapter;
 
 
+import com.codingshuttle.razorpay.common_lib.dto.PaymentProcessorResponse;
 import com.codingshuttle.razorpay.common_lib.dto.VaultChargeRequest;
 import com.codingshuttle.razorpay.payment_service.client.VaultServiceClient;
 import com.codingshuttle.razorpay.payment_service.gateway.PaymentAdapter;
 import com.codingshuttle.razorpay.payment_service.gateway.dto.PaymentRequest;
 import com.codingshuttle.razorpay.payment_service.gateway.dto.PaymentResult;
-import com.codingshuttle.razorpay.payment_service.processor.dto.PaymentProcessorResponse;
+
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -21,6 +24,8 @@ public class CardPaymentAdapter implements PaymentAdapter {
     private final VaultServiceClient vaultServiceClient;
 
     @Override
+    @CircuitBreaker(name = "vault-service")
+    @Retry(name = "vault-service")
     public PaymentResult initiate(PaymentRequest request) {
         String token = (String) request.methodDetails().get("token");
 

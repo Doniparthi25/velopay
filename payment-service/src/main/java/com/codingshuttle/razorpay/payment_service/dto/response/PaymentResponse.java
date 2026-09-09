@@ -3,6 +3,7 @@ package com.codingshuttle.razorpay.payment_service.dto.response;
 
 
 import com.codingshuttle.razorpay.common_lib.entity.Money;
+import com.codingshuttle.razorpay.common_lib.enums.PaymentMethod;
 import com.codingshuttle.razorpay.common_lib.enums.PaymentStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -17,7 +18,7 @@ public record PaymentResponse(
         UUID merchantId,
         Money amount,
         PaymentStatus status,
-        PaymentStatus method,
+        PaymentMethod method,
         Map<String, Object> methodDetails,
         String errorCode,
         String errorDescription,

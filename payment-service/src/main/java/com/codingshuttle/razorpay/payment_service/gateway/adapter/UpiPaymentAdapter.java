@@ -1,13 +1,13 @@
 package com.codingshuttle.razorpay.payment_service.gateway.adapter;
 
 
+import com.codingshuttle.razorpay.common_lib.dto.PaymentProcessorRequest;
+import com.codingshuttle.razorpay.common_lib.dto.PaymentProcessorResponse;
 import com.codingshuttle.razorpay.common_lib.enums.PaymentMethod;
 import com.codingshuttle.razorpay.payment_service.gateway.PaymentAdapter;
 import com.codingshuttle.razorpay.payment_service.gateway.dto.PaymentRequest;
 import com.codingshuttle.razorpay.payment_service.gateway.dto.PaymentResult;
 import com.codingshuttle.razorpay.payment_service.processor.PaymentProcessorRouter;
-import com.codingshuttle.razorpay.payment_service.processor.dto.PaymentProcessorRequest;
-import com.codingshuttle.razorpay.payment_service.processor.dto.PaymentProcessorResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

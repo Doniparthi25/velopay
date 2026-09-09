@@ -19,6 +19,8 @@ import com.codingshuttle.razorpay.payment_service.outbox.OutboxEventPublisher;
 import com.codingshuttle.razorpay.payment_service.repository.OrderRepository;
 import com.codingshuttle.razorpay.payment_service.repository.PaymentRepository;
 import com.codingshuttle.razorpay.payment_service.service.OrderService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,6 +50,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
+    @CircuitBreaker(name = "merchant-service")
+    @Retry(name = "merchant-service")
     public OrderResponse create(UUID merchantId, CreateOrderRequest request) {
         if(request.receipt() !=null && orderRepository.existsByMerchantIdAndReceipt(merchantId,request.receipt())) {
             throw new DuplicateResourceException("ORDER_RECEIPT_DUPLICATE","Order with receipt already exists: " + request.receipt());
@@ -121,7 +125,7 @@ public class OrderServiceImpl implements OrderService {
         OrderRecord order = orderRepository.findByIdAndMerchantId(merchantId,orderId)
                 .orElseThrow(()-> new ResourceNotFoundException("Order",orderId));
 
-        List<Payment> paymentList =paymentRepository.findByOrder_id(order);
+        List<Payment> paymentList =paymentRepository.findByOrder_Id(order);
         return paymentMapper.toResponseList(paymentList);
     }
 }

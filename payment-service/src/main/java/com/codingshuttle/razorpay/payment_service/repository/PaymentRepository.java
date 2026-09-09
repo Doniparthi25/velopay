@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface PaymentRepository extends JpaRepository<Payment, UUID> {
-    List<Payment> findByOrder_id(OrderRecord order);
+    List<Payment> findByOrder_Id(OrderRecord order);
 
     Optional<Payment> findByIdAndMerchantId(UUID paymentId, UUID merchantId);
 
@@ -30,6 +30,9 @@ public interface PaymentRepository extends JpaRepository<Payment, UUID> {
     Optional<Payment> findByIdForUpdate(UUID paymentId);
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("select p form Payment p where p.merchantId = :merchantId and p.status = :paymentStatus and p.settledAt is null")
+    @Query("select p from Payment p where p.merchantId = :merchantId and p.status = :paymentStatus and p.settledAt is null")
     List<Payment> findByMerchantIdAndStatusForUpdate(UUID merchantId, PaymentStatus paymentStatus);
+
+    Optional<Payment> findByMerchantIdAndIdempotencyKey(UUID merchantId, String idempotencyKey);
+
 }

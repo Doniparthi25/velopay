@@ -25,8 +25,8 @@ public class SharedSecurityAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnProperty(name = "webhook.secret.encryption-key")
-    public BytesEncryptor webhookSecretEncryptor(@Value("${webhook.secret.encryption-key}") String masterKey) {
+    @ConditionalOnProperty(name = "webhook.secret-encryption-key")
+    public BytesEncryptor webhookSecretEncryptor(@Value("${webhook.secret-encryption-key}") String masterKey) {
         return new AesEncryptionConfig().masterKeyEncryptor(masterKey);
     }
 

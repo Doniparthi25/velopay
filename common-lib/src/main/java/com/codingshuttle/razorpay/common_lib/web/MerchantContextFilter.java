@@ -14,23 +14,25 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class MerchantContextFilter extends OncePerRequestFilter {
 
-    public static final String MERCHANT_ID_HEADER = "X-Merchant_Id";
-    public static final String KEY_ID_HEADER = "X-Key_Id";
+    public static final String MERCHANT_ID_HEADER = "X-Merchant-Id";
+    public static final String KEY_ID_HEADER = "X-Key-Id";
 
     private final MerchantContext merchantContext;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
+
         String merchantIdHeader = request.getHeader(MERCHANT_ID_HEADER);
-        if (merchantIdHeader !=null && !merchantIdHeader.isBlank()) {
+        if (merchantIdHeader != null && !merchantIdHeader.isBlank()) {
             merchantContext.setMerchantId(UUID.fromString(merchantIdHeader));
         }
 
         String keyId = request.getHeader(KEY_ID_HEADER);
-        if (keyId !=null && !keyId.isBlank()) {
+        if (keyId != null && !keyId.isBlank()) {
             merchantContext.setKeyId(keyId);
         }
-        filterChain.doFilter(request,response);
-    }
 
+        filterChain.doFilter(request, response);
+    }
 }
