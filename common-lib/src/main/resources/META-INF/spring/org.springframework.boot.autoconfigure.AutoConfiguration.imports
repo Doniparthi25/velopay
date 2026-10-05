@@ -4,3 +4,4 @@ com.codingshuttle.razorpay.common_lib.exceptions.SharedExceptionAutoConfiguratio
 com.codingshuttle.razorpay.common_lib.idempotency.SharedResilienceAutoConfiguration
 com.codingshuttle.razorpay.common_lib.util.SharedSecurityAutoConfiguration
 com.codingshuttle.razorpay.common_lib.web.SharedWebFilterAutoConfiguration
+com.codingshuttle.razorpay.common_lib.config.ZipkinConfig

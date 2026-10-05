@@ -58,6 +58,10 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
+			<groupId>io.zipkin.reporter2</groupId>
+			<artifactId>zipkin-sender-okhttp3</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-zipkin</artifactId>
 		</dependency>
@@ -75,6 +79,15 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>io.zipkin.reporter2</groupId>
+			<artifactId>
+				zipkin-sender-urlconnection
+			</artifactId>
+			<version>3.5.3</version>
+			<scope>compile</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>

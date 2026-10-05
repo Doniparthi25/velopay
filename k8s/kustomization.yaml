@@ -11,11 +11,11 @@ resources:
   - stateful/prometheus.yaml
   - stateful/grafana.yaml
   - services/config-service.yaml
-#  - services/api-gateway.yaml
-#  - services/merchant-service.yaml
-#  - services/payment-service.yaml
-#  - services/operations-service.yaml
-#  - services/vault-service.yaml
+  - services/api-gateway.yaml
+  - services/merchant-service.yaml
+  - services/payment-service.yaml
+  - services/operations-service.yaml
+  - services/vault-service.yaml
 
 secretGenerator:
   - name: app-secrets
