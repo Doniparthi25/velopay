@@ -26,3 +26,10 @@ replay_pid*
 # Secret files — never commit
 k8s/k8s-secrets.env
 *.env
+
+# IntelliJ IDEA files
+.idea/
+*.iml
+target/
+build/
+.gradle/
